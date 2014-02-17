@@ -4,10 +4,10 @@ class Opencv < Formula
   #homepage 'http://opencv.org/'
   #url 'https://github.com/Itseez/opencv/archive/2.4.7.1.tar.gz'
   #sha1 'b6b0dd72356822a482ca3a27a7a88145aca6f34c'
-  url 'https://github.com/Itseez/opencv/archive/2.4.8.tar.gz'
-  sha1 '61b95974bf9689b94b169c39aed6c85a2e124837'
-  #homepage 'https://github.com/Itseez/opencv'
-  #head 'https://github.com/Itseez/opencv.git', :using => :git
+  #url 'https://github.com/Itseez/opencv/archive/2.4.8.tar.gz'
+  #sha1 '61b95974bf9689b94b169c39aed6c85a2e124837'
+  homepage 'https://github.com/Itseez/opencv'
+  head 'https://github.com/Itseez/opencv.git', :using => :git
 
   option '32-bit'
   option 'with-qt',  'Build the Qt4 backend to HighGUI'
