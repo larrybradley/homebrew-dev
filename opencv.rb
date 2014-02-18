@@ -51,6 +51,7 @@ class Opencv < Formula
       -DBUILD_JASPER=OFF
       -DBUILD_TESTS=OFF
       -DBUILD_PERF_TESTS=OFF
+      -DPYTHON_INCLUDE_DIR='#{%x(python-config --prefix).chomp}/include/python2.7'
       -DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'
     ]
 
