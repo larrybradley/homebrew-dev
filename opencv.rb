@@ -1,7 +1,7 @@
 require 'formula'
 
 class Opencv < Formula
-  homepage 'http://opencv.org/'
+  #homepage 'http://opencv.org/'
   #url 'https://github.com/Itseez/opencv/archive/2.4.7.1.tar.gz'
   #sha1 'b6b0dd72356822a482ca3a27a7a88145aca6f34c'
   #url 'https://github.com/Itseez/opencv/archive/2.4.8.tar.gz'
@@ -40,6 +40,26 @@ class Opencv < Formula
   def install
     ENV.cxx11 if build.cxx11?
 
+    # NOTE:  `python-config` is no longer found in /usr/local/bin after
+    #        the introduction of `superenv` -- but oddly only for the HEAD
+    #        install.  The workaround is to install with `--env=std` (or
+    #        one could hardwire the python-config path).
+    #aa = `printenv PATH`
+    #print aa
+    #bb = `which python`
+    #print bb
+    #cc = `which python-config`
+    #print cc
+
+    # NOTE: requires `--env=std` to find correct `python-config`:
+    python_prefix = `python-config --prefix`.strip
+
+    #python_prefix = `python-config --prefix`.split
+    #python_prefix = '%x(python-config --prefix).chomp'
+    #python_prefix = `#{HOMEBREW_PREFIX}/bin/python-config --prefix`.strip
+    #python_prefix = '/usr/local/Cellar/python/2.7.6/Frameworks/Python.framework/Versions/2.7'
+    #print python_prefix
+
     args = std_cmake_args + %W[
       -DCMAKE_OSX_DEPLOYMENT_TARGET=
       -DWITH_CUDA=OFF
@@ -50,8 +70,8 @@ class Opencv < Formula
       -DBUILD_JASPER=ON
       -DBUILD_TESTS=OFF
       -DBUILD_PERF_TESTS=OFF
-      -DPYTHON_LIBRARY=#{`python-config --prefix`.split}/Python
-      -DPYTHON_INCLUDE_DIR=#{`python-config --prefix`.split}/Headers
+      -DPYTHON_LIBRARY='#{python_prefix}/Python'
+      -DPYTHON_INCLUDE_DIR='#{python_prefix}/Headers'
     ]
 
     args << "-DBUILD_opencv_java=" + ((build.with? "java") ? "ON" : "OFF")
